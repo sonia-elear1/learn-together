@@ -1,9 +1,7 @@
 # Data structure and algorithims
+### Space and Time Complexity
 
-### Day 1 & 2
-
-#### Space and Time Complexity
-
+#### Time Complexity
 * Example:Actual complexity of fibonnaci series : 1.6 ^n
 
 1. What is time complexity
@@ -31,5 +29,28 @@
          lim         f(N)/g(N)< Infinity<br>
          N->infinity
 4. Big omega: <br>opposite of Big oh
-    1. word defination: minimum take the complexity given or lowerr 
-       bound
+    1. word defination: minimum take the complexity given or lowerr bound
+5. Theta notation:
+    1. word defination: if an algo has lower and upper bound as same complexity
+6. little o notation:
+    1. word defination: it also gives for worst case but it will give loose upper bound (means strictly lower to given complexity)
+    f= O(g) => (f<=g) vs f = o(N) (f< g)
+7. little Omega notation:
+    1. word defination: big omega => f = omega(g) => f>=g
+     but little omega means strictly lower bound =>
+    f = omega(g) => f>g  
+<br>
+
+#### Space complexity
+1. Input space +  Auxilary space(extra temporary space taken by an algorithm)
+
+<br>
+
+#### Questions
+
+1. `for(i =1;i<=n;){
+  for(j = 1; j<=k; j++){
+    // some operation  taking time t
+  }
+  i = i+k;
+}`
