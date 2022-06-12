@@ -8,8 +8,8 @@
 
 1. What is time complexity
  function that tells us how time will grows as input size grows.
- **Note** :  Time complexity!== time taken
- Why it is important to have a relation between time and size?
+ **Note :  Time complexity!== time taken**
+  1. Why it is important to have a relation between time and size?
  as it varies according to size for different algos like while 
  considering it for large amount of data: O(1) < O(logN) < O(N) 
 2. What do we consider while thinking about complexity?
