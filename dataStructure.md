@@ -7,8 +7,7 @@
 * Example:Actual complexity of fibonnaci series : 1.6 ^n
 
 1. What is time complexity
- function that tells us how time will grows as input size grows
- 
+ function that tells us how time will grows as input size grows.
  **Note** :  Time complexity!== time taken
  Why it is important to have a relation between time and size?
  as it varies according to size for different algos like while 
