@@ -54,3 +54,13 @@
   }
   i = i+k;
 }`
+<br>
+Solution: Inner loop O(Kt) time
+ANS : O(Kt * TIME OUTER LOOP RUNNING)
+TIME OUTER LOOP RUNNING: 1+xK times <= N
+O(Kt * (N-1/K))=> O(Nt)
+
+<br>
+
+#### Complexity Analysis : Sorting Algorithms
+
