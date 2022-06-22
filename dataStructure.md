@@ -1,5 +1,5 @@
 # Data structure and algorithims
-### Space and Time Complexity
+## Space and Time Complexity
 
 #### Time Complexity
 * Example:Actual complexity of fibonnaci series : 1.6 ^n
@@ -63,4 +63,27 @@ O(Kt * (N-1/K))=> O(Nt)
 <br>
 
 #### Complexity Analysis : Sorting Algorithms
+
+1. Bubble Sort : <br>
+ Worst and Average Time Complexity: O(N*N) <br>
+ Best Case : O(N)
+ Auxilary space: O(1)
+2. Selection Sort
+  Worst, Average and best : O(N*N)
+  Auxilary space: O(1)
+3. Insertion Sort:
+  Worst, Average and best : O(N*N)
+  Auxilary space: O(1)
+
+#### Recursive Algorithms:
+
+Recursive Programms doesnot have constant space complexity as function is calling again and again and
+calls take some space in stack;
+ 
+
+
+
+
+## Recursion
+
 
