@@ -31,4 +31,4 @@ var pattern = (value, key) => {
     return ans;
 }
 
-console.log(pattern("soniadua", 10));
+console.log(pattern("soniadua", 3));
