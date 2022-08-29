@@ -9,6 +9,11 @@ class Heap {
     right = (i) => { return Math.floor((2 * i + 2)); }
     parent = (i) => { return Math.floor((i - 1) / 2); }
 
+    /**
+     * insert new elemnt in array and convert to min heap
+     * @param {*} ele 
+     * @returns 
+     */
     insertMinHeap = (ele) => {
         this.size = this.arr.length;
         console.log(this.size, this.capacity)
@@ -22,6 +27,11 @@ class Heap {
         return this.arr
     }
 
+    /**
+     * create min heap from bottom to top after inserting new element
+     * @param {*} i 
+     * @returns 
+     */
     createMinHeap = (i) => {
         for (let start = i; start != 0 && this.arr[this.parent(start)] > this.arr[start];) {
             let temp = this.arr[start];
@@ -32,6 +42,10 @@ class Heap {
         return this.arr;
     }
 
+    /**
+     * min heapify - min at highest priority
+     * @param {*} i 
+     */
     minHeapify = (i) => {
         let lt = this.left(i);
         let rt = this.right(i);
@@ -167,6 +181,11 @@ class Heap {
         return this.arr
     }
 
+    /**
+     * Sort an array that is already k-sorted.
+     * @param {*} k
+     * @returns 
+     */
     sortKSortedArr = (k) => {
         let n = this.size
         let priorityQueue = []
@@ -222,8 +241,13 @@ class Heap {
     /**
      * Approach 3: print k largest element 
      * k: no of elements
+     * minify heap till k element
+     * replace array of k+1 with array first if arr[0] is smaller and minify heap till k element
+     * remove k+1 element from arr
+     * if(arr size is equal to k) return arr
      * Time complexity O(k +(N-k)logN)
      */
+
      printKlargestEleOpt = (k) => {
         this.buildHeap(k);
         while(this.arr.length > k){
@@ -238,6 +262,10 @@ class Heap {
         }
      }
 
+     /**
+      * remove max element in max heap and heapify again
+      * @returns 
+      */
     extractMax = () => {
         if(this.size === 0 ) return []
         if (this.size === 1) {
