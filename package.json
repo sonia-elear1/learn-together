@@ -1,0 +1,24 @@
+{
+  "name": "dsalgo",
+  "version": "1.0.0",
+  "description": "Repository contains practice questions for personal progress in DSA using JAVASCRIPT\r and \"NOTES\" section contains interview preperation based content in pdf file of JAVASCRIPT, NODEJS, ANGULAR, MONGODB, GIT and many more",
+  "main": "loadBalancing.js",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonia-elear1/DSAlgo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sonia-elear1/DSAlgo/issues"
+  },
+  "homepage": "https://github.com/sonia-elear1/DSAlgo#readme"
+}

@@ -16,7 +16,6 @@ class Heap {
      */
     insertMinHeap = (ele) => {
         this.size = this.arr.length;
-        console.log(this.size, this.capacity)
         if (this.size === this.capacity) return;
         else {
             this.size++;
@@ -72,14 +71,15 @@ class Heap {
         if (this.size === 0) return [];
         if (this.size === 1) {
             this.arr.shift()
-            size--
+            this.size--
             return this.arr[this.size]
         }
+        let el = this.arr[0]
         this.arr[0] = this.arr[this.size - 1];
         this.arr.pop()
         this.size--
         this.minHeapify(0)
-        return this.arr
+        return el
     }
 
     /**
@@ -231,7 +231,7 @@ class Heap {
     printKlargestEle = (k) => {
         let ans = []
         this.buildMaxHeap();
-        for(let i = 0; i < k; i++){
+        for (let i = 0; i < k; i++) {
             ans.push(this.arr[0]);
             this.extractMax()
         }
@@ -248,65 +248,184 @@ class Heap {
      * Time complexity O(k +(N-k)logN)
      */
 
-     printKlargestEleOpt = (k) => {
+    printKlargestEleOpt = (k) => {
         this.buildHeap(k);
-        while(this.arr.length > k){
-            if(this.arr[k] > this.arr[0]){
+        while (this.arr.length > k) {
+            if (this.arr[k] > this.arr[0]) {
                 this.arr[0] = this.arr[k]
                 this.buildHeap(k)
-            } 
-            this.arr.splice(k,1)
-            if(this.arr.length === k){
+            }
+            this.arr.splice(k, 1)
+            if (this.arr.length === k) {
                 return this.arr
             }
         }
-     }
+    }
 
-     /**
-      * remove max element in max heap and heapify again
-      * @returns 
-      */
+    /**
+     * remove max element in max heap and heapify again
+     * @returns 
+     */
     extractMax = () => {
-        if(this.size === 0 ) return []
+        if (this.size === 0) return []
         if (this.size === 1) {
             this.arr.shift()
             size--
             return this.arr[this.size]
         }
-        this.arr[0] = this.arr[this.size-1];
+        this.arr[0] = this.arr[this.size - 1];
         this.arr.pop()
         this.size--;
         this.maxHeapify(this.size, 0)
         return this.arr
     }
+
+    /**
+     * Buy maximum from given sum
+     */
+    buyMaxEle = (sum) => {
+        let count = 0
+        this.buildHeap();
+        sum = sum - this.arr[0]
+        while (sum >= 0) {
+            this.extractMin()
+            sum = sum - this.arr[0];
+            count++
+        }
+        return count
+    }
+
+    /**
+     * X elementsclosest to k
+     * @param {*} k 
+     * @param {*} x 
+     * @returns 
+     */
+    KclosestElement = (k, x) => {
+        this.arr = this.arr.map((data) => Math.abs(data - k))
+        this.buildHeap();
+        let ans = [];
+        while (x > 0) {
+            ans.push(this.arr[0] + k)
+            this.extractMin();
+            x--
+        }
+        return ans
+    }
+
+    /**
+     *  Merge K sorted Array
+     * @returns 
+     */
+    mergeKSortedArray = () => {
+        let res = []
+        let n = this.arr.length
+        let pq = new Array()
+        for (let i = 0; i < n; i++) {
+            let k = {
+                value: this.arr[i][0],
+                arrPos: i,
+                valPos: 0
+            }
+            pq.push(k)
+        }
+        let ans = this.buildPQminHeap(n, pq);
+        while (pq!== undefined && pq.length > 0) {
+            let val = ans[0]
+            res.push(val.value)
+            if (this.arr[val.arrPos][val.valPos + 1]!== undefined) {
+                pq.push({
+                    value: this.arr[val.arrPos][val.valPos + 1],
+                    arrPos: val.arrPos,
+                    valPos: val.valPos + 1
+                })
+            }
+            pq = this.extractPQMin(pq.length, pq);
+        }
+        return res
+    }
+
+    buildPQminHeap = (n, pq) => {
+        for (let i = Math.floor((n - 2) / 2); i >= 0; i--) { this.minPQheapify(i, pq) }
+        return pq
+    }
+
+    minPQheapify = (i, arr) => {
+        let lt = this.left(i);
+        let rt = this.right(i);
+        let smallest = i;
+        if (lt < arr.length && arr[lt].value < arr[smallest].value) {
+            smallest = lt
+        }
+        if (rt < arr.length && arr[rt].value < arr[smallest].value) {
+            smallest = rt
+        }
+        if (smallest != i) {
+            let temp = arr[smallest];
+            arr[smallest] = arr[i]
+            arr[i] = temp;
+            this.minPQheapify(smallest, arr)
+        }
+        return arr
+    }
+
+    extractPQMin = (n, arr) => {
+        if (n === 0) return [];
+        if (n === 1) {
+            arr.shift()
+            return arr[n]
+        }
+        arr[0] = arr[n-1];
+        arr.pop()
+        this.minPQheapify(0, arr)
+        return arr
+    }
 }
 
-let heap = new Heap(15);
-heap.arr = [10, 20, 15, 40, 50, 100, 25, 45]
-heap.size = heap.arr.length;
-console.log(heap.insertMinHeap(12), "insert")
-console.log(heap.extractMin(), "remove min")
-console.log(heap.decreaseKey(3, 5), "decrease index value")
-console.log(heap.deleteKey(3), "delete key at index")
 
 
-let heap1 = new Heap(15);
+// let heap = new Heap(15);
+// heap.arr = [10, 20, 15, 40, 50, 100, 25, 45]
+// heap.size = heap.arr.length;
+// console.log(heap.insertMinHeap(12), "insert")
+// console.log(heap.extractMin(), "remove min", heap.arr)
+// console.log(heap.decreaseKey(3, 5), "decrease index value")
+// console.log(heap.deleteKey(3), "delete key at index")
 
-heap1.arr = [10, 5, 20, 2, 4, 8]
-heap1.size = heap1.arr.length;
-console.log(heap1.buildHeap(), "build heap from bt")
 
-let heapS = new Heap(15);
-heapS.arr = [10, 15, 50, 4, 20]
-heapS.size = heapS.arr.length;
-console.log(heapS.heapSort(), "heap sort")
+// let heap1 = new Heap(15);
 
-let sortKSorted = new Heap(15);
-sortKSorted.arr = [4, 2, 1, 3, 12, 56]
-sortKSorted.size = sortKSorted.arr.length
-console.log(sortKSorted.sortKSortedArr(3), "sortKSortedArr")
+// heap1.arr = [10, 5, 20, 2, 4, 8]
+// heap1.size = heap1.arr.length;
+// console.log(heap1.buildHeap(), "build heap from bt")
 
-let printKlargest =  new Heap(15);
-printKlargest.arr = [15,10,2,4,45,21,13]
-printKlargest.size = printKlargest.arr.length
-console.log(printKlargest.printKlargestEleOpt(4), "print klargest ")
+// let heapS = new Heap(15);
+// heapS.arr = [10, 15, 50, 4, 20]
+// heapS.size = heapS.arr.length;
+// console.log(heapS.heapSort(), "heap sort")
+
+// let sortKSorted = new Heap(15);
+// sortKSorted.arr = [4, 2, 1, 3, 12, 56]
+// sortKSorted.size = sortKSorted.arr.length
+// console.log(sortKSorted.sortKSortedArr(3), "sortKSortedArr")
+
+// let printKlargest =  new Heap(15);
+// printKlargest.arr = [15,10,2,4,45,21,13]
+// printKlargest.size = printKlargest.arr.length
+// console.log(printKlargest.printKlargestEleOpt(4), "print klargest ")
+
+// let getMaxEl = new Heap(15);
+// getMaxEl.arr = [1,12,5,111,200]
+// getMaxEl.size = getMaxEl.arr.length;
+// console.log(getMaxEl.buyMaxEle(10), "buy max")
+
+// let Kclosest = new Heap(15);
+// Kclosest.arr = [10,30,5,40,38,80,70]
+// Kclosest.size =  Kclosest.arr.length;
+// console.log(Kclosest.KclosestElement(35, 2), "kclosest")
+
+
+// let mergeSorted = new Heap(30);
+// mergeSorted.arr = [[10, 15, 20], [3, 5, 12, 16], [7, 8, 10]];
+// console.log(mergeSorted.mergeKSortedArray(), "mergeKsorted")
+[3],[1],[2]

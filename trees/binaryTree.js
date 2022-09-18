@@ -478,10 +478,10 @@ class BinaryTree {
             for (let i = 0; i < count; i++) {
                 let temp = queue.shift();
                 ans++;
-                if(temp.left!==null)
-                 queue.push(temp.left);
-                if(temp.right!==null)
-                 queue.push(temp.right)
+                if (temp.left !== null)
+                    queue.push(temp.left);
+                if (temp.right !== null)
+                    queue.push(temp.right)
             }
         }
         return ans
@@ -494,23 +494,23 @@ class BinaryTree {
     convertBTtoDLL = (node) => {
         let prev = null
         function traverse(node) {
-            if(node ===  null) return node;
+            if (node === null) return node;
             /* first recur on left child */
-           let head = traverse(node.left);
+            let head = traverse(node.left);
             /* then print the data of node */
-           if(prev === null) {
-             head = node
-           }
-           else {
-    
-             node.left = prev
-             prev.right = node
-           }
-           prev = node
+            if (prev === null) {
+                head = node
+            }
+            else {
+
+                node.left = prev
+                prev.right = node
+            }
+            prev = node
             /* now recur on right child */
-           traverse(node.right);
-        //    ans = head
-        return head
+            traverse(node.right);
+            //    ans = head
+            return head
         }
         let ans = traverse(node);
         return ans
@@ -520,14 +520,14 @@ class BinaryTree {
         let is = 0;
         let ie = ino.length - 1
         let map = new Map()
-        for(let i = is;i<= ie; i++) {
-           map.set(ino[i], i)
+        for (let i = is; i <= ie; i++) {
+            map.set(ino[i], i)
         }
         let preIndex = 0;
         let head;
-        function create(ino, pre, is, ie){
+        function create(ino, pre, is, ie) {
             let inIndex;
-            if(is > ie) return null;
+            if (is > ie) return null;
             let root = new newNode(pre[preIndex]);
             // console.log(root)
             preIndex++;
@@ -538,8 +538,8 @@ class BinaryTree {
             //     }
             // }
             inIndex = map.get(root.data)
-            root.left = create(ino, pre, is, inIndex-1)
-            root.right = create(ino, pre, inIndex+1, ie)
+            root.left = create(ino, pre, is, inIndex - 1)
+            root.right = create(ino, pre, inIndex + 1, ie)
             return root;
         }
         head = create(ino, pre, is, ie)
@@ -557,14 +557,14 @@ class BinaryTree {
         let is = 0;
         let ie = ino.length - 1
         let map = new Map()
-        for(let i = is;i<= ie; i++) {
+        for (let i = is; i <= ie; i++) {
             map.set(ino[i], i)
-         }
-        let postIndex =  ino.length - 1;
-        let head;
-        function create(ino, post, is, ie){
+        }
+        let postIndex = ino.length - 1;
+        // let head;
+        function create(ino, post, is, ie) {
             let inIndex;
-            if(is > ie) return null;
+            if (is > ie) return null;
             console.log(post[postIndex])
             let root = new newNode(post[postIndex]);
             postIndex--;
@@ -572,26 +572,128 @@ class BinaryTree {
             // if (is == ie) {
             //     return root;
             //   }
-            root.right = create(ino, post, inIndex+1, ie)
-            root.left = create(ino, post, is, inIndex-1)
-            
+            root.right = create(ino, post, inIndex + 1, ie)
+            root.left = create(ino, post, is, inIndex - 1)
+
             return root;
         }
-        head = create(ino, post, is, ie)
-        return head
+        this.root = create(ino, post, is, ie)
+        return this.root
     }
+
+    traverseSpiral = (node) => {
+        let arr = []
+        let result = []
+        let reverse = false;
+        arr.push(node);
+        let stack = []
+        while (arr.length > 0) {
+            let count = arr.length;
+            for (let i = 0; i < count; i++) {
+                let temp = arr.shift();
+                if (reverse) {
+                    stack.push(temp.data)
+                }
+                else {
+                    result.push(temp.data)
+                }
+                if (temp.left != null) {
+                    arr.push(temp.left)
+                }
+                if (temp.right != null) {
+                    arr.push(temp.right)
+                }
+            }
+            if (reverse) {
+                while (stack.length > 0) {
+                    let el = stack.pop();
+                    result.push(el);
+                }
+            }
+            reverse = !reverse
+        }
+        return result
+    }
+
+    /**
+     * Traverse tree in spiral using two stacks
+     * @param {*} node 
+     */
+    traverseSpiralOptimize = (node) => {
+        let ans = [];
+        let stack1 = [];
+        let stack2 = [];
+        let result = [];
+        stack1.push(node);
+        while (stack1.length > 0 || stack2.length > 0) {
+            while (stack1.length > 0) {
+                let temp = stack1.pop();
+                ans.push(temp.data);
+                if (temp.right !== null)
+                    stack2.push(temp.right);
+                if (temp.left !== null)
+                    stack2.push(temp.left)
+            }
+            result = result.concat([ans])
+            ans =[]
+            while (stack2.length > 0) {
+                let temp = stack2.shift();
+                ans.push(temp.data);
+                if (temp.right !== null)
+                    stack1.push(temp.right)
+                if (temp.left !== null)
+                    stack1.push(temp.left);
+            }
+            result = result.concat([ans])
+            ans =[]
+        }
+        return result
+    }
+
+    /**
+     * Diameter of a Binary Tree
+     * @param {*} node  
+     * Time Complexity O(N^2)
+     * @returns maximum length between left and right in tree/subtree
+     */
+    diameterOfBTBasic = (node) => {
+        if(node=== null) return 0;
+        let height =  1+ this.height(node.left) + this.height(node.right);
+        let lh = this.diameterOfBTBasic(node.left);
+        let rh = this.diameterOfBTBasic(node.right);
+        return Math.max(height, Math.max(lh,rh))
+    }
+
+    /**
+     * Diameter of binary tree optimized
+     * @param {*} node
+     * Time Complexity O(N) 
+     * @returns 
+     */
+    diameterOfBTEfficient = (node) => {
+        let diameterOfBT = 0
+        function traverse(node){
+            if(node === null) return 0;
+            let lh = traverse(node.left);
+            let rh = traverse(node.right);
+            diameterOfBT = Math.max(diameterOfBT, 1+lh+rh);
+            return 1+Math.max(lh,rh)
+        }
+        traverse(node);
+        return diameterOfBT;
+     }
 }
 
 
-let tree = new BinaryTree();
-tree.createBinaryTree(5);
-tree.createBinaryTree(10);
-tree.createBinaryTree(2);
-tree.createBinaryTree(8);
-tree.createBinaryTree(7);
-tree.createBinaryTree(4);
-tree.createBinaryTree(11);
-console.log(JSON.stringify(tree.root))
+// let tree = new BinaryTree();
+// tree.createBinaryTree(5);
+// tree.createBinaryTree(10);
+// tree.createBinaryTree(2);
+// tree.createBinaryTree(8);
+// tree.createBinaryTree(7);
+// tree.createBinaryTree(4);
+// tree.createBinaryTree(11);
+// console.log(JSON.stringify(tree.root))
 // tree.printInorder(tree.root);
 // tree.printPostorder(tree.root);
 // tree.printPreorder(tree.root);
@@ -624,4 +726,9 @@ tree1.createBinaryTree(4);
 let tree2 = new BinaryTree();
 console.log(tree2.createTreefromInPre([ 'D', 'B', 'E' ,'A' ,'F' ,'C' ], ['A','B', 'D', 'E', 'C', 'F']), "createtree ")
 let tree3 = new BinaryTree();
-console.log(tree3.createTreefromInPost([ 4, 8, 2, 5, 1, 6, 3, 7], [8, 4, 5, 2, 6, 7, 3, 1]), "createtree postorder")
+console.log(tree3.createTreefromInPost([4, 8, 2, 5, 1, 6, 3, 7], [8, 4, 5, 2, 6, 7, 3, 1]), "createtree postorder")
+// console.log(tree3.root)
+// console.log(tree3.traverseSpiral(tree3.root), "spiral")
+// console.log(tree3.traverseSpiralOptimize(tree3.root), "spiral traverse optimize")
+console.log(tree1.diameterOfBTBasic(tree1.root), "diameter of bt using naive")
+console.log(tree1.diameterOfBTEfficient(tree1.root), "diameter of bt using efficient")

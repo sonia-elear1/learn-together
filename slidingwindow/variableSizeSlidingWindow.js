@@ -12,8 +12,7 @@ const largestSubarrSize = (arr, k) => {
             j++
         }
         else if (sum === k) {
-            max = max > (j - i + 1) ? max : (j - i + 1)
-            j++
+           return [i,j]
         }
         else if (sum > k) {
             while (sum > k) {
@@ -23,7 +22,7 @@ const largestSubarrSize = (arr, k) => {
             j++;
         }
     }
-    console.log(max);
+    return -1
 }
 
-largestSubarrSize([10, 5, 2, 7, 1, 9], 5)
+console.log(largestSubarrSize([10, 5, 2, 7, 1, 9], 14))

@@ -56,3 +56,4 @@ var pivotIndex = function (nums) {
     // return -1
 };
 pivotIndex([1,7,3,6,5,6])
+
