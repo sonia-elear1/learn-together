@@ -682,6 +682,16 @@ class BinaryTree {
         traverse(node);
         return diameterOfBT;
      }
+
+     /**
+      * Lowerst common ancestor
+      * The lowest common ancestor is defined between two nodes p 
+      * and q as the lowest node in T that has both p and q as descendants
+      * Application: to find disctance between two nodes
+      */
+     lowestCommonAncestor = (node) => {
+        
+     }
 }
 
 
@@ -727,7 +737,7 @@ let tree2 = new BinaryTree();
 console.log(tree2.createTreefromInPre([ 'D', 'B', 'E' ,'A' ,'F' ,'C' ], ['A','B', 'D', 'E', 'C', 'F']), "createtree ")
 let tree3 = new BinaryTree();
 console.log(tree3.createTreefromInPost([4, 8, 2, 5, 1, 6, 3, 7], [8, 4, 5, 2, 6, 7, 3, 1]), "createtree postorder")
-// console.log(tree3.root)
+console.log(tree3.root)
 // console.log(tree3.traverseSpiral(tree3.root), "spiral")
 // console.log(tree3.traverseSpiralOptimize(tree3.root), "spiral traverse optimize")
 console.log(tree1.diameterOfBTBasic(tree1.root), "diameter of bt using naive")

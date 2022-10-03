@@ -1,3 +1,7 @@
+/**
+ * rotate matrix clockwise by 90 degree
+ * @param {*} matrix 
+ */
 var rotate90 = (matrix) => {
     let n = matrix.length;
     for (let i = 0; i < n / 2; i++) {
@@ -7,7 +11,7 @@ var rotate90 = (matrix) => {
         matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j]
         matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
         matrix[j][n - 1 - i] = temp
-  
+ 
       }
     }
     console.log(matrix)
