@@ -350,6 +350,12 @@ class Heap {
         return pq
     }
 
+    /**
+     * 
+     * @param {*} i 
+     * @param {*} arr 
+     * @returns 
+     */
     minPQheapify = (i, arr) => {
         let lt = this.left(i);
         let rt = this.right(i);
@@ -369,6 +375,12 @@ class Heap {
         return arr
     }
 
+    /**
+     * 
+     * @param {*} n 
+     * @param {*} arr 
+     * @returns 
+     */
     extractPQMin = (n, arr) => {
         if (n === 0) return [];
         if (n === 1) {
@@ -428,4 +440,3 @@ class Heap {
 // let mergeSorted = new Heap(30);
 // mergeSorted.arr = [[10, 15, 20], [3, 5, 12, 16], [7, 8, 10]];
 // console.log(mergeSorted.mergeKSortedArray(), "mergeKsorted")
-[3],[1],[2]
